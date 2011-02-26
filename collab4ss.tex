@@ -4,18 +4,83 @@
 %
 \documentclass[]{article}
 
+\usepackage{hyperref}
+
 \author{Mark Fredrickson} % \and you!
-\title{Collaboration for Social Scientists}
+\title{Collaboration for Social Scientists, or Software is the Easy Part}
 \begin{document}
 
 \maketitle
 
 \section{Collaboration Basics}
+
 % text files/documents of simple structure
 % sideband communication (``Hey! I'm working on that!'')
 % place in context of other articles in TPM
 
+In this article, we consider two different modes of collaboration: synchronous
+and asynchronous. When working synchronously, contributors are both working on
+\emph{the same portions of the research at the same time}. We provide some
+suggestions for maximizing time spent working together. Of course, virtually
+any research project will require collaborators to spend time working on
+either different portions of the project or working on the same sections but
+at different times. We label this form of collaboration asynchronous.
+Asynchronous collaboration requires more careful attention to dividing labor,
+and we spend more time providing software solutions in this domain.
+
 \section{Synchronous Collaboration}
+
+While it might appear collaborators at the same institution or who can
+frequently meet face to face will benefit from synchronous collaboration
+techniques, many of these techniques rely on networked computers or can be
+applied over video chat or speaker phone.
+
+We begin by importing some techniques from software engineering. In recent
+years, so-called ``Agile'' programming and project management aproaches to
+software engineering have become popular, especially at start ups and younger
+development shops. Many techniques fall under the umbrella of ``Agile''
+methods, including suggestions for organizing teams, minimizing unnecessary
+meetings, and communicating frequently changing client requests. While social
+scientists could benefit from these suggestions, we tend to be our own clients
+and work in smaller teams than programmers. One technique we do think would be
+of benefit to social scientists would be the concept of \emph{Pair
+Programming,} sometimes also called ``eXtreme Programming'' (XP). Pair
+programming places two programmers at the same computer: one screen, one
+keyboard, two heads. One programmer takes the lead to write software, while
+the second provides suggestions, acts as a sounding board, catches errors, and
+questions assumptions made by the first programmer. 
+
+While it may sound wasteful to place two collaborators in front of a single
+computer and have them both focus on the same task, the technique can lead to
+\emph{more} code being written and \emph{higher quality} software as well. The
+key insight is that typing is rarely the bottleneck for producing code. Having
+a second person on hand to help with the concepts, design, and implementation
+cuts down on time spent chasing dead-ends or time wasted on simple bugs.
+If you have spent several hours on a problem only to realize your mistake
+while explaining the problem to someone, you will see the immediate benefits
+of pair programming. 
+
+In practice, pair programming need not have both subjects staring at the same
+screen at the same time. One programmer may be writing code, while the other
+looks into API documentation, writes unit tests, or provides documentation,
+but is immediately available to support the first programmer. Additionally,
+collaborators need not be in the same physical space. There are several tools
+for real-time co-editing of documents. Wikipedia provides a fairly detailed
+list of \href{http://en.wikipedia.org/wiki/Collaborative_real-time_editor}{collaborative real-time
+editors}. All of these editors allow multiple authors to simultaneously edit
+documents, which may even be a useful feature to pair programmers in the same
+physical space. Since this issue of TPM is strongly encouraging learning and
+using a text editor, you may wish to favor editors that allow for simultaneous
+editing. At a minimum, \href{http://www.gnu.org/software/screen/}{GNU Screen}
+provides an immediate solution for Emacs and VIM users who wish to pair program.
+More advance uses may require a editor plugin or separate editor.
+
+In addition to managing file editing, some real time editors also facilitate
+verbal communication. Of course, if your editor does not immediately provide
+this service, a call via \href{http://www.skype.com}{Skype} or
+\href{http://chat.google.com}{Google Chat} can fulfill communication needs. Of
+course, these tools can also be of use to collaborators, even they forgo the
+pair programming model.
 % pair programming
 % other agile methods
 % screen & google docs
@@ -25,6 +90,7 @@
 % dropbox/shared files
 % wiki
 % version control
+% make files to explicitly state dependences
 
 \section{Further Reading}
 
