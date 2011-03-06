@@ -153,6 +153,42 @@ the target using its command. For example, if \texttt{data.csv} is updated,
 \texttt{make} will automatically rebuild \texttt{figure.pdf} before rebuilding
 \texttt{paper.pdf}.
 
+Using a \texttt{Makefile} simplifies the amount of knowledge any individual on
+the team has to have regarding creating artifacts. Instead of having to
+remember and manually implement the build process, all a collaborator has to
+do is type \texttt{make} at the command line and he will be certain to have a
+properly built version of an artifact, say a PDF document.
+
+To some degree, literate programming tools, such as \texttt{Sweave}, minimize
+the need establish a clear dependency tree in a build script. \texttt{Sweave}
+chunks take the place of
+having separate files for loading and transforming data, building models, and
+generating figures. Since files are evaluated top-down, there is an implicit
+dependency structure, with later chunks depending on earlier chunks. In order
+to weave the file, all chunks are rebuilt, guaranteeing any changes in early
+code chunks flow downstream.
+
+While we are heavy users of \texttt{Sweave}, we still think explicit build
+scripts have a role to play. First, certain computations can be time
+consuming, but do not need to be frequently updated. Simulations and
+boostrapping within a \texttt{Sweave} document increase the time from making
+an edit (perhaps to the text) and final output as a PDF. Writing these
+computations in separate \texttt{.R} files eliminates the need to rerun the
+computations when no code or data has changed.\footnote{We are aware of caching
+mechanisms for \texttt{Sweave} chunks, but we are concerned that these systems
+do not include specific dependency management and therefore still require more
+rebuilding than is necessary with explicit build scripts.} Second, even when
+using a single \texttt{Sweave} file to merge text and code, projects of a
+reasonable size will include additional files, especially data. These files
+may have their own build steps or simply be dependencies for the
+\texttt{Sweave} file. Encapsulating these relationships in a build script is
+still useful, even when using \texttt{Sweave}. Finally, even when using
+\texttt{Sweave}, your team may wish to split up the work into different files
+for logical or practical reasons. While version control systems are powerful
+tools, sometimes the best way to work with collaborators is to divide the task
+into separate tasks and each work in a different file. Build scripts help with
+merging the separate files into a unified whole.
+
 
 \section{Conclusion}
 
