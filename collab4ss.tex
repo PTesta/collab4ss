@@ -88,7 +88,22 @@ pair programming model.
 \section{Asynchronous Collaboration}
 % dropbox/shared files
 % wiki
-% version control
+
+While shared files solve the problem of all collaborators having
+access to common resources, simple file servers provide no guarantee that
+collaborators will not unintentionally overwrite each others changes. Consider
+for example the following scenario, both you and your collaborator are working
+on the same LaTeX file. You are editing the abstract, while your partner
+changes a few lines in the conclusion. You save your work to the shared area,
+while unknown to you, your partner saved her work only a few minutes before.
+Even though you were working in an entirely different part of the file, your
+changes overwrite those of your partner, silently dropping her work and
+reverting back to the old conclusion. Developed for software engineering,
+version control systems are designed to address this need, allowing multiple
+authors to work on documents and safely merge change. 
+
+% Nils' SVN stuff here.
+
 % make files to explicitly state dependences
 
 \section{Further Reading}
