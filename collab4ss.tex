@@ -106,6 +106,59 @@ authors to work on documents and safely merge change.
 
 % make files to explicitly state dependences
 
+While version control systems will keep track of changes and make sure the
+source is in a consistent state,  % blah, write this better
+source code alone (and here we include things such as .tex files and data),
+does not completely describe \emph{how} to create the research. Consider, for
+example, creating a figure for a paper. Being a good collaborator, you take
+the time to write the figure generating code in \texttt{figure.R} and insert
+it into the main \latex file using
+\texttt{\\includegraphics}. The figure relies on data in \texttt{data.csv} and
+some code in \texttt{models.R}. While it is straightforward for the original
+author to create this graphic, will it be obvious to others in the project
+that if either the data or models change, the figure should also change? For
+lengthy projects, even the original author may forget which files depend on
+others.
+
+Again borrowing for software engineering, we suggest the use of build files to
+solve this problem. Build files explicitly state dependencies between files
+and explain how to generate artifacts, such as PDF files. As an added benefit,
+build files automate the creation of artifacts and ensure that files are built
+in the proper order. Most importantly, build files ensure that artifacts are
+updated when source documents, including data, change. Returning to the figure
+example above, we could notate the necessary conditions for updating the
+figure and the main PDF with the following GNU \texttt{Makefile}\footnote{We
+use the classic and widely available GNU \texttt{make} system, but other build
+systems exist. Some of these systems, for example \texttt{Rake} for Ruby,
+allow more programming and customization within the build scripts. Your team
+may benefit from this extended functionality}:
+
+\begin{verbatim}
+
+paper.pdf: figure.pdf paper.tex
+  latexmk -pdf paper.tex
+
+figure.pdf: figure.R data.csv
+  R --silent --file = figure.R
+
+\end{verbatim}
+
+The unindented lines indicate \emph{targets}, with a list of dependencies
+after the colon and a build command on the following indented line.
+The \texttt{make} command checks each target and compares the
+time stamp on the target with the time stamp on each dependency. If any
+dependency is newer than the target, the dependency is rebuilt using its
+command (perhaps recursively building further dependencies) and then builds
+the target using its command. For example, if \texttt{data.csv} is updated,
+\texttt{make} will automatically rebuild \texttt{figure.pdf} before rebuilding
+\texttt{paper.pdf}.
+
+
+\section{Conclusion}
+
+% good collaboration leads to reproducible research
+% ``collaborating with replicators'' or something like that
+
 \section{Further Reading}
 
 % TODO appendix and a bib file
