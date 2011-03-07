@@ -134,13 +134,11 @@ allow more programming and customization within the build scripts. Your team
 may benefit from this extended functionality}:
 
 \begin{verbatim}
-
 paper.pdf: figure.pdf paper.tex
   latexmk -pdf paper.tex
 
 figure.pdf: figure.R data.csv
   R --silent --file = figure.R
-
 \end{verbatim}
 
 The unindented lines indicate \emph{targets}, with a list of dependencies
@@ -189,6 +187,87 @@ tools, sometimes the best way to work with collaborators is to divide the task
 into separate tasks and each work in a different file. Build scripts help with
 merging the separate files into a unified whole.
 
+While build files indicate which files should be updated when data change, we
+encourage social scientists to write scripts to update data as well. Again
+borrowing from software engineering, we have found ``database migrations'' to
+be a useful technique in capturing exactly how and why data should
+change.\footnote{As the name implies, database migrations are most often
+applied to databases, as compared to flat files, such as \texttt{.csv} or
+\texttt{.dta} files. While beyond the scope of this article, relational databases are an
+underused tool in the social sciences. We hope to provide suggestions on using
+true databases in a research context in future articles.}
+While a version control system could capture how a \texttt{.csv} file changes
+from one commit to the next, a migration provides the exact steps by which the
+data are manipulated. For example, consider downloading data from \href{the
+ANES}{http://electionstudies.org} and \href{the United States
+Census}{http://www.census.gov} and joining it into a single table for analysis
+in \texttt{R}. The most familiar approach might be to load both datasets into
+\texttt{R}, use the \texttt{merge} function to combine them into a single
+table, and then save them into a \texttt{.rda}. We suggest two alternatives,
+both of which could be considered ``migrations,'' that provide more
+information about the steps undertaken to combine the disparate data sources.
+
+The first technique we call ``one file to rule them all.'' In this scenario,
+you add your ANES and Census data to your version control repository, along
+with a file \texttt{data.R}. This file contains the code to load, clean, and
+merge the data, possibly saving a \texttt{data.rda} file in the process. You can
+enter \texttt{data.rda} as a dependency in your \texttt{Makefile}:
+
+\begin{verbatim}
+analysis.tex: analysis.Rnw data.rda
+  R CMD Sweave analysis.Rnw
+
+data.rda: data.R anes.csv census.csv
+  R --silent --file = data.R
+\end{verbatim}
+
+If you or your collaborators need to edit the data at a later time, you can
+update \texttt{data.R}. Since it is included in the \texttt{Makefile},
+downstream files will be appropriately updated as well.
+
+For more complex data needs, you may concern employing a series of migrations,
+each building off the previous. As a convention, label your migrations in
+order: \texttt{001\_load\_data.R}, \texttt{002\_fix\_coding.R}, etc. Rather than
+having a single file manage all data manipulations, each migration is a
+separate file that loads, manipulates, and saves the updated data. To run the
+migrations, collaborators run the scripts in sequence starting with
+\texttt{001\_\ldots}. This migration strategy has been most successful, for us,
+when using mixed languages to update the data. Here, for example, is a listing
+of migrations on a project that pulls in hate crime data, survey information,
+and Census information from the web and builds a relational
+database:\footnote{\texttt{.sql} files are SQL files, a relational database
+language, and \texttt{.clj} are Clojure files, a LISP language for the JVM.}
+\begin{verbatim}
+001_initialize.sql
+002_populate.clj
+003_remove_redundant_data.sql
+004_connect_census_tables.sql
+005_hate_groups.clj
+006_splc_hatewatch_events.clj
+007_coding_events # is a directory of relevant files for 
+\end{verbatim}
+Where, as an example, \texttt{003\_connect\_census\_tables.sql} presupposes a
+\texttt{data.sql} file:
+\begin{verbatim}
+-- see the .schema for what is in these tables
+-- fips gets duplicated as fips:1, fips:2, ...
+
+CREATE VIEW census AS
+SELECT * FROM 
+  counties c LEFT JOIN census_area_pop ap ON c.fips = ap.fips
+  LEFT JOIN census_employment e ON c.fips = e.fips
+  LEFT JOIN census_foreign_moved fm ON c.fips = fm.fips
+  LEFT JOIN census_income i ON c.fips = i.fips
+  LEFT JOIN census_language_education le ON c.fips = le.fips
+  LEFT JOIN census_occupation o ON c.fips = o.fips
+  LEFT JOIN census_race r ON c.fips = r.fips;
+\end{verbatim}
+Splitting migrations into separate files is more overhead, but provides a
+finer grained record of changes, even in a version control scenario. We
+consider either single files (like the \texttt{data.R} example above) or
+multiple files good solutions. Your team should select the method that best
+suits your work style and the amount of cleaning and manipulation data
+required for your project.
 
 \section{Conclusion}
 
