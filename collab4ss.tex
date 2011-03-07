@@ -198,9 +198,9 @@ underused tool in the social sciences. We hope to provide suggestions on using
 true databases in a research context in future articles.}
 While a version control system could capture how a \texttt{.csv} file changes
 from one commit to the next, a migration provides the exact steps by which the
-data are manipulated. For example, consider downloading data from \href{the
-ANES}{http://electionstudies.org} and \href{the United States
-Census}{http://www.census.gov} and joining it into a single table for analysis
+data are manipulated. For example, consider downloading data from \href{http://electionstudies.org}{the
+ANES} and \href{http://www.census.gov}{the United States
+Census} and joining it into a single table for analysis
 in \texttt{R}. The most familiar approach might be to load both datasets into
 \texttt{R}, use the \texttt{merge} function to combine them into a single
 table, and then save them into a \texttt{.rda}. We suggest two alternatives,
@@ -270,6 +270,42 @@ suits your work style and the amount of cleaning and manipulation data
 required for your project.
 
 \section{Conclusion}
+
+While we have stressed software throughout this article, the technology is the
+easiest part of collaboration. Habits, conventions, and best pratices are much
+harder to achieve. At the same time, software suggests (or makes easier)
+certain mehtods of collaboration. Using a version control system requires
+collaborators to think about which files to add to the shared repository and
+which files are transitory or local. Similarly, build files help us
+communicate the steps necessary to build documents to our collaborators.
+Alternatively, we could just detailed \texttt{README} files, but these tools
+add value above and beyond pure description, though they serve a similar
+purpose.
+
+Nevertheless, agreeing to use \texttt{SVN} or \texttt{make} is a relatively
+simple decision, adhering to best practices is much harder. Version control
+frees us from calling our collaboratos on the phone and saying, ``Don't touch
+this file; I'm working on it.'' But just because one can check in a file
+without merge conflicts does not mean the document is in a good state. We can
+still mutually non-conflicting changes that lead to disastrous results.
+Working through such disasters is still a matter of communication between
+collaborators. But even such conflicts are usually quickly resolved. More
+difficult is maintaining common style and usage throughout a
+project.\footnote{You may wish to adopt a style guide for both coding and
+text.
+\href{http://google-styleguide.googlecode.com/svn/trunk/google-r-style.html}{Google publishes a style guide for
+R}.
+Style guides for the English language are numerous.}
+
+This article has focused on collaboration, but these suggestions also have
+benefits for \emph{replication.} In sense, someone replicating your research
+is simply a future collaborator. Encapsulating changes within a version
+control system, providing build scripts, and adhearing to a consistent style
+guide all make it easier for a future researcher to replicate our work. These
+tools also make it easier for other researchers evaluate our work by adjusting assumptions, use
+different data sets, or applying new methods to our data. In this article, we
+focused on collaboration as an immediate goal, but as an added incentive these
+suggestions also make for reproducible research. 
 
 % good collaboration leads to reproducible research
 % ``collaborating with replicators'' or something like that
