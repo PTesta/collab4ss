@@ -65,7 +65,8 @@ looks into API documentation, writes unit tests, or provides documentation,
 but is immediately available to support the first programmer. Additionally,
 collaborators need not be in the same physical space. There are several tools
 for real-time co-editing of documents. Wikipedia provides a fairly detailed
-list of \href{http://en.wikipedia.org/wiki/Collaborative_real-time_editor}{collaborative real-time
+list of \href{http://en.wikipedia.org/wiki/Collaborative_real-time_editor}
+{collaborative real-time
 editors}. All of these editors allow multiple authors to simultaneously edit
 documents, which may even be a useful feature to pair programmers in the same
 physical space. Since this issue of TPM is strongly encouraging learning and
@@ -89,7 +90,8 @@ pair programming model.
 % dropbox/shared files
 % wiki
 
-%PFT: Here's my attempt to give a transition from Synch to Async Collab with a drop box intro that leads into your discussion of its limitations.
+%PFT: Here's my attempt to give a transition from Synch to Async Collab with a 
+drop box intro that leads into your discussion of its limitations.
 
 %Introdcution/transition
 Even the closest of collaborators need to spend some time apart. The primary
@@ -97,18 +99,21 @@ challenge for effective asynchronous collaboration is ensuring that this time
 is spent contributing to the final product and not wondering where one's 
 changes went and why one's partner is working off a draft from three months ago.
 
-Services such as \href{href://www.dropbox.com}{Dropbox} provide a relatively 
+Services such as \href{http://www.dropbox.com}{Dropbox} provide a relatively 
 simple and elegant solution to the challenge of keeping collaborators on same 
 page. Users download a desktop application that creates a DropBox folder on
 their computer. Files stored in this folder are available online through the 
 user's account, as well as on any other computer the user has installed DropBox 
 on or shared his or her folder with. Changes made to a file are automatically
-synchronized with a user's other online account and other computers, ensuring that
+synchronized with a user's other online account and other computers, ensuring 
+that
 collaborators are always working off the most recent copy.
  %Awkward i know but this was getting late.
 
 Think of DropBox as the sort of iPhone of file sharing services (in fact there
-are several DropBox applications for the iPhone and other mobile devices). It's relatively easy to use, synchronizes changes automatically and offers a degree 
+are several DropBox applications for the iPhone and other mobile devices). It's 
+relatively easy to use, synchronizes changes automatically and offers a 
+degree 
 of version control (up to thirty days for free users and unlimited for paying 
 customers). DropBox is well suited for the less technically savvy social 
 scientists. More advanced users and frequent collaborators may chafe at the 
@@ -117,18 +122,28 @@ friendly features promote bad collaboration habits.
 
 While shared files solve the problem of all collaborators having
 access to common resources, simple file servers provide no guarantee that
-collaborators will not unintentionally overwrite each others changes. Consider
+collaborators will not unintentionally overwrite each other's changes. Consider
 for example the following scenario, both you and your collaborator are working
 on the same LaTeX file. You are editing the abstract, while your partner
 changes a few lines in the conclusion. You save your work to the shared area,
 while unknown to you, your partner saved her work only a few minutes before.
 Even though you were working in an entirely different part of the file, your
 changes overwrite those of your partner, silently dropping her work and
-reverting back to the old conclusion. Developed for software engineering,
-version control systems are designed to address this need, allowing multiple
-authors to work on documents and safely merge change. 
+reverting back to the old conclusion. 
 
-% Nils' SVN stuff here.
+This is exactly what so-called version control (VC) systems are designed to avoid. 
+Developed for is software engineering, these systems enable multiple authors to 
+work on the same documents and safely merge their changes. The basic setup of a 
+version control system is simple. Collaborators work off a central repository, where 
+the version-controlled documents reside. Upon joining a project, each collaborator 
+obtains a working copy of each of these documents. Versions are tracked by means of revision numbers, assigned and maintained by the VC system. When you obtain a document (``check out''), your local copy is assigned the revision number of the repository at that time. 
+
+As the project proceeds, collaborators change different parts of their working copies of the same document, which brings us to the situation described above: how do your modified abstract and the conclusion written by your collaborator end up in the same document? Let's assume that you are finished writing the abstract, while your partner is still working on the conclusion. Your and your collaborator's working copies are both currently in revision 22. You upload your changes to the central repository, a step that in the VC world is called a ``commit''. When you do so, a new revision (rev.~23) is created in the central repository. Once your partner attempts to upload the new document with the conclusion, the VC system prevents her from doing so, because the working copy she is using is not up to date and still in revision 22. Prior to committing her changes, she has to update her working copy to the current revision of the repository (rev.~23). This is done by performing an ``update'' operation in the VC system, during with the updated parts in the main document (the abstract) are merged into the local working copy of your partner, while, and this is important, preserving her newly written conclusion.\footnote{Things become more tricky if you and your partner modify the same parts of a document (for example, you both provide an abstract). In this case, human intervention is required: the VC system highlights the conflicting changes, but lets you decide what should be the final version.} 
+
+Various implementations of this basic version control model exist. One of the most popular systems is \href{http://subversion.tigris.org/}{Subversion}, which is available free of charge (both the server required to set up a central repository, and a command line client to check out and maintain a local working copy). However, various alternatives exist that make life easier for less tech-savvy people. \href{http://www.projectlocker.com/}{Projectlocker} offers Subversion hosting, and a free account can store up to 300 MB. If the documents you put under version control mainly include Latex and R code, this is more than enough. \href{http://tortoisesvn.tigris.org/}{TortoiseSVN} is a graphical Subversion client for Windows users that integrates nicely with the Windows Explorer. A similar project exists for OS X (\href{http://scplugin.tigris.org/}{SCPlugin}), but due to its early development stage, some people may prefer commercial products (\href{http://www.zennaware.com/cornerstone/}{Cornerstone} or \href{http://versionsapp.com/}{Versions}). 
+
+\href{http://git-scm.com/}{Git} is another version control system that relies on a slightly different merging mechanism. [Mark: add more? One or two sentences are probably enough.] 
+
 
 % make files to explicitly state dependences
 
@@ -219,12 +234,14 @@ borrowing from software engineering, we have found ``database migrations'' to
 be a useful technique in capturing exactly how and why data should
 change.\footnote{As the name implies, database migrations are most often
 applied to databases, as compared to flat files, such as \texttt{.csv} or
-\texttt{.dta} files. While beyond the scope of this article, relational databases are an
+\texttt{.dta} files. While beyond the scope of this article, relational databases 
+are an
 underused tool in the social sciences. We hope to provide suggestions on using
 true databases in a research context in future articles.}
 While a version control system could capture how a \texttt{.csv} file changes
 from one commit to the next, a migration provides the exact steps by which the
-data are manipulated. For example, consider downloading data from \href{http://electionstudies.org}{the
+data are manipulated. For example, consider downloading data from \href{http://
+electionstudies.org}{the
 ANES} and \href{http://www.census.gov}{the United States
 Census} and joining it into a single table for analysis
 in \texttt{R}. The most familiar approach might be to load both datasets into
@@ -319,7 +336,8 @@ collaborators. But even such conflicts are usually quickly resolved. More
 difficult is maintaining common style and usage throughout a
 project.\footnote{You may wish to adopt a style guide for both coding and
 text.
-\href{http://google-styleguide.googlecode.com/svn/trunk/google-r-style.html}{Google publishes a style guide for
+\href{http://google-styleguide.googlecode.com/svn/trunk/google-r-style.html}
+{Google publishes a style guide for
 R}.
 Style guides for the English language are numerous.}
 
@@ -328,7 +346,8 @@ benefits for \emph{replication.} In sense, someone replicating your research
 is simply a future collaborator. Encapsulating changes within a version
 control system, providing build scripts, and adhearing to a consistent style
 guide all make it easier for a future researcher to replicate our work. These
-tools also make it easier for other researchers evaluate our work by adjusting assumptions, use
+tools also make it easier for other researchers evaluate our work by adjusting 
+assumptions, use
 different data sets, or applying new methods to our data. In this article, we
 focused on collaboration as an immediate goal, but as an added incentive these
 suggestions also make for reproducible research. 
