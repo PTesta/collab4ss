@@ -136,13 +136,47 @@ Developed for is software engineering, these systems enable multiple authors to
 work on the same documents and safely merge their changes. The basic setup of a 
 version control system is simple. Collaborators work off a central repository, where 
 the version-controlled documents reside. Upon joining a project, each collaborator 
-obtains a working copy of each of these documents. Versions are tracked by means of revision numbers, assigned and maintained by the VC system. When you obtain a document (``check out''), your local copy is assigned the revision number of the repository at that time. 
+obtains a working copy of each of these documents. Versions are tracked by means of 
+revision numbers, assigned and maintained by the VC system. When you obtain a document 
+(``check out''), your local copy is assigned the revision number of the repository at 
+that time. 
 
-As the project proceeds, collaborators change different parts of their working copies of the same document, which brings us to the situation described above: how do your modified abstract and the conclusion written by your collaborator end up in the same document? Let's assume that you are finished writing the abstract, while your partner is still working on the conclusion. Your and your collaborator's working copies are both currently in revision 22. You upload your changes to the central repository, a step that in the VC world is called a ``commit''. When you do so, a new revision (rev.~23) is created in the central repository. Once your partner attempts to upload the new document with the conclusion, the VC system prevents her from doing so, because the working copy she is using is not up to date and still in revision 22. Prior to committing her changes, she has to update her working copy to the current revision of the repository (rev.~23). This is done by performing an ``update'' operation in the VC system, during with the updated parts in the main document (the abstract) are merged into the local working copy of your partner, while, and this is important, preserving her newly written conclusion.\footnote{Things become more tricky if you and your partner modify the same parts of a document (for example, you both provide an abstract). In this case, human intervention is required: the VC system highlights the conflicting changes, but lets you decide what should be the final version.} 
+As the project proceeds, collaborators change different parts of their working copies 
+of the same document, which brings us to the situation described above: how do your 
+modified abstract and the conclusion written by your collaborator end up in the same 
+document? Let's assume that you are finished writing the abstract, while your partner 
+is still working on the conclusion. Your and your collaborator's working copies are 
+both currently in revision 22. You upload your changes to the central repository, a 
+step that in the VC world is called a ``commit''. When you do so, a new revision 
+(rev.~23) is created in the central repository. Once your partner attempts to upload 
+the new document with the conclusion, the VC system prevents her from doing so, because 
+the working copy she is using is not up to date and still in revision 22. Prior to 
+committing her changes, she has to update her working copy to the current revision of 
+the repository (rev.~23). This is done by performing an ``update'' operation in the VC 
+system, during with the updated parts in the main document (the abstract) are merged 
+into the local working copy of your partner, while, and this is important, preserving 
+her newly written conclusion.\footnote{Things become more tricky if you and your 
+partner modify the same parts of a document (for example, you both provide an 
+abstract). In this case, human intervention is required: the VC system highlights the 
+conflicting changes, but lets you decide what should be the final version.} 
 
-Various implementations of this basic version control model exist. One of the most popular systems is \href{http://subversion.tigris.org/}{Subversion}, which is available free of charge (both the server required to set up a central repository, and a command line client to check out and maintain a local working copy). However, various alternatives exist that make life easier for less tech-savvy people. \href{http://www.projectlocker.com/}{Projectlocker} offers Subversion hosting, and a free account can store up to 300 MB. If the documents you put under version control mainly include Latex and R code, this is more than enough. \href{http://tortoisesvn.tigris.org/}{TortoiseSVN} is a graphical Subversion client for Windows users that integrates nicely with the Windows Explorer. A similar project exists for OS X (\href{http://scplugin.tigris.org/}{SCPlugin}), but due to its early development stage, some people may prefer commercial products (\href{http://www.zennaware.com/cornerstone/}{Cornerstone} or \href{http://versionsapp.com/}{Versions}). 
+Various implementations of this basic version control model exist. One of the most 
+popular systems is \href{http://subversion.tigris.org/}{Subversion}, which is available 
+free of charge (both the server required to set up a central repository, and a command 
+line client to check out and maintain a local working copy). However, various 
+alternatives exist that make life easier for less tech-savvy people. \href{http://
+www.projectlocker.com/}{Projectlocker} offers Subversion hosting, and a free account 
+can store up to 300 MB. If the documents you put under version control mainly include 
+Latex and R code, this is more than enough. \href{http://tortoisesvn.tigris.org/}
+{TortoiseSVN} is a graphical Subversion client for Windows users that integrates nicely 
+with the Windows Explorer. A similar project exists for OS X (\href{http://
+scplugin.tigris.org/}{SCPlugin}), but due to its early development stage, some people 
+may prefer commercial products (\href{http://www.zennaware.com/cornerstone/}
+{Cornerstone} or \href{http://versionsapp.com/}{Versions}). 
 
-\href{http://git-scm.com/}{Git} is another version control system that relies on a slightly different merging mechanism. [Mark: add more? One or two sentences are probably enough.] 
+\href{http://git-scm.com/}{Git} is another version control system that relies on a 
+slightly different merging mechanism. [Mark: add more? One or two sentences are 
+probably enough.] 
 
 
 % make files to explicitly state dependences
