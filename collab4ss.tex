@@ -6,7 +6,7 @@
 
 \usepackage{hyperref}
 
-\author{Mark M. Fredrickson \and Paul F. Testa} % \and you!
+\author{Mark M. Fredrickson \and Paul F. Testa \and Nils B. Weidmann} % \and you!
 \title{Collaboration for Social Scientists, or Software is the Easy Part}
 \begin{document}
 
@@ -91,7 +91,7 @@ pair programming model.
 % wiki
 
 %PFT: Here's my attempt to give a transition from Synch to Async Collab with a 
-drop box intro that leads into your discussion of its limitations.
+% drop box intro that leads into your discussion of its limitations.
 
 %Introdcution/transition
 Even the closest of collaborators need to spend some time apart. The primary
@@ -99,6 +99,7 @@ challenge for effective asynchronous collaboration is ensuring that this time
 is spent contributing to the final product and not wondering where one's 
 changes went and why one's partner is working off a draft from three months ago.
 
+\subsection{Shared Files}
 Services such as \href{http://www.dropbox.com}{Dropbox} provide a relatively 
 simple and elegant solution to the challenge of keeping collaborators on same 
 page. Users download a desktop application that creates a DropBox folder on
@@ -120,6 +121,7 @@ scientists. More advanced users and frequent collaborators may chafe at the
 limitations of its ``freemium'' services and find that some of its more user
 friendly features promote bad collaboration habits.
 
+\subsection{Version Control}
 While shared files solve the problem of all collaborators having
 access to common resources, simple file servers provide no guarantee that
 collaborators will not unintentionally overwrite each other's changes. Consider
@@ -244,7 +246,7 @@ user and the Dropbox case, it would be easy to start pushing to a shared
 remote server for more serious collaboration.
 
 % make files to explicitly state dependences
-
+\subsection{Scripts}
 While version control systems will keep track of changes and make sure the
 source is in a consistent state,  % blah, write this better
 source code alone (and here we include things such as .tex files and data),
