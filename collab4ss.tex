@@ -158,7 +158,15 @@ into the local working copy of your partner, while, and this is important, prese
 her newly written conclusion.\footnote{Things become more tricky if you and your 
 partner modify the same parts of a document (for example, you both provide an 
 abstract). In this case, human intervention is required: the VC system highlights the 
-conflicting changes, but lets you decide what should be the final version.} 
+conflicting changes, but lets you decide what should be the final version.
+
+VC systems (generally) assess changes on a line-by-line basis. You can
+minimize your conflicts by editing the fewest lines possible for any change
+and by making frequent check-ins. You may find it helpful to use hard wrapping
+in your editor of choice when editing \texttt{.tex} files, at say 80
+characters. This will automatically break long sentences into smaller chunks
+from the perspective of the VC system and provide for fewer headaches down the
+road.}
 
 Various implementations of this basic version control model exist. One of the most 
 popular systems is \href{http://subversion.tigris.org/}{Subversion}, which is available 
