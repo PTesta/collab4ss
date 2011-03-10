@@ -6,7 +6,7 @@
 
 \usepackage{hyperref}
 
-\author{Mark M. Fredrickson \and Paul F. Testa} % \and you!
+\author{Mark M. Fredrickson \and Paul F. Testa \and Nils B. Weidmann} % \and you!
 \title{Collaboration for Social Scientists, or Software is the Easy Part}
 \begin{document}
 
@@ -25,7 +25,13 @@ any research project will require collaborators to spend time working on
 either different portions of the project or working on the same sections but
 at different times. We label this form of collaboration asynchronous.
 Asynchronous collaboration requires more careful attention to dividing labor,
-and we spend more time providing software solutions in this domain.
+and we spend more time providing software solutions in this domain. These
+suggestions are based in what has worked \emph{for us}. These suggestions
+grounded in experience, and we think they are
+useful techniques for any team to adopt, but we have also found that software
+is the easy part of any collaboration. Hopefully, adopting some of these
+techniques may help your team get past technical details faster and down to
+the real business of producing research.
 
 \section{Synchronous Collaboration}
 
@@ -65,7 +71,8 @@ looks into API documentation, writes unit tests, or provides documentation,
 but is immediately available to support the first programmer. Additionally,
 collaborators need not be in the same physical space. There are several tools
 for real-time co-editing of documents. Wikipedia provides a fairly detailed
-list of \href{http://en.wikipedia.org/wiki/Collaborative_real-time_editor}{collaborative real-time
+list of \href{http://en.wikipedia.org/wiki/Collaborative_real-time_editor}
+{collaborative real-time
 editors}. All of these editors allow multiple authors to simultaneously edit
 documents, which may even be a useful feature to pair programmers in the same
 physical space. Since this issue of TPM is strongly encouraging learning and
@@ -89,7 +96,8 @@ pair programming model.
 % dropbox/shared files
 % wiki
 
-%PFT: Here's my attempt to give a transition from Synch to Async Collab with a drop box intro that leads into your discussion of its limitations.
+%PFT: Here's my attempt to give a transition from Synch to Async Collab with a 
+% drop box intro that leads into your discussion of its limitations.
 
 %Introdcution/transition
 Even the closest of collaborators need to spend some time apart. The primary
@@ -97,41 +105,154 @@ challenge for effective asynchronous collaboration is ensuring that this time
 is spent contributing to the final product and not wondering where one's 
 changes went and why one's partner is working off a draft from three months ago.
 
-Services such as \href{href://www.dropbox.com}{Dropbox} provide a relatively 
+\subsection{Shared Files}
+Services such as \href{http://www.dropbox.com}{Dropbox} provide a relatively 
 simple and elegant solution to the challenge of keeping collaborators on same 
 page. Users download a desktop application that creates a DropBox folder on
 their computer. Files stored in this folder are available online through the 
 user's account, as well as on any other computer the user has installed DropBox 
 on or shared his or her folder with. Changes made to a file are automatically
-synchronized with a user's other online account and other computers, ensuring that
+synchronized with a user's other online account and other computers, ensuring 
+that
 collaborators are always working off the most recent copy.
  %Awkward i know but this was getting late.
 
 Think of DropBox as the sort of iPhone of file sharing services (in fact there
-are several DropBox applications for the iPhone and other mobile devices). It's relatively easy to use, synchronizes changes automatically and offers a degree 
+are several DropBox applications for the iPhone and other mobile devices). It's 
+relatively easy to use, synchronizes changes automatically and offers a 
+degree 
 of version control (up to thirty days for free users and unlimited for paying 
 customers). DropBox is well suited for the less technically savvy social 
 scientists. More advanced users and frequent collaborators may chafe at the 
 limitations of its ``freemium'' services and find that some of its more user
 friendly features promote bad collaboration habits.
 
+\subsection{Version Control}
 While shared files solve the problem of all collaborators having
 access to common resources, simple file servers provide no guarantee that
-collaborators will not unintentionally overwrite each others changes. Consider
+collaborators will not unintentionally overwrite each other's changes. Consider
 for example the following scenario, both you and your collaborator are working
 on the same LaTeX file. You are editing the abstract, while your partner
 changes a few lines in the conclusion. You save your work to the shared area,
 while unknown to you, your partner saved her work only a few minutes before.
 Even though you were working in an entirely different part of the file, your
 changes overwrite those of your partner, silently dropping her work and
-reverting back to the old conclusion. Developed for software engineering,
-version control systems are designed to address this need, allowing multiple
-authors to work on documents and safely merge change. 
+reverting back to the old conclusion. 
 
-% Nils' SVN stuff here.
+This is exactly what so-called version control (VC) systems are designed to avoid. 
+Developed for is software engineering, these systems enable multiple authors to 
+work on the same documents and safely merge their changes.
+Version control systems come in two flavors: centralized and decentralized.
+The basic setup of a 
+centralized version control system is simple. Collaborators work off a central repository, where 
+the version-controlled documents reside. Upon joining a project, each collaborator 
+obtains a working copy of each of these documents. Versions are tracked by means of 
+revision numbers, assigned and maintained by the VC system. When you obtain a document 
+(``check out''), your local copy is assigned the revision number of the repository at 
+that time. 
+
+As the project proceeds, collaborators change different parts of their working copies 
+of the same document, which brings us to the situation described above: how do your 
+modified abstract and the conclusion written by your collaborator end up in the same 
+document? Let's assume that you are finished writing the abstract, while your partner 
+is still working on the conclusion. Your and your collaborator's working copies are 
+both currently in revision 22. You upload your changes to the central repository, a 
+step that in the VC world is called a ``commit''. When you do so, a new revision 
+(rev.~23) is created in the central repository. Once your partner attempts to upload 
+the new document with the conclusion, the VC system prevents her from doing so, because 
+the working copy she is using is not up to date and still in revision 22. Prior to 
+committing her changes, she has to update her working copy to the current revision of 
+the repository (rev.~23). This is done by performing an ``update'' operation in the VC 
+system, during with the updated parts in the main document (the abstract) are merged 
+into the local working copy of your partner, while, and this is important, preserving 
+her newly written conclusion.\footnote{Things become more tricky if you and your 
+partner modify the same parts of a document (for example, you both provide an 
+abstract). In this case, human intervention is required: the VC system highlights the 
+conflicting changes, but lets you decide what should be the final version.
+
+VC systems (generally) assess changes on a line-by-line basis. You can
+minimize your conflicts by editing the fewest lines possible for any change
+and by making frequent check-ins. You may find it helpful to use hard wrapping
+in your editor of choice when editing \texttt{.tex} files, at say 80
+characters. This will automatically break long sentences into smaller chunks
+from the perspective of the VC system and provide for fewer headaches down the
+road.}
+
+Various implementations of this centralized version control model exist. One of the most 
+popular systems is \href{http://subversion.tigris.org/}{Subversion}, which is available 
+free of charge (both the server required to set up a central repository, and a command 
+line client to check out and maintain a local working copy). However, various 
+alternatives exist that make life easier for less tech-savvy people. \href{http://
+www.projectlocker.com/}{Projectlocker} offers Subversion hosting, and a free account 
+can store up to 300 MB. If the documents you put under version control mainly include 
+Latex and R code, this is more than enough. \href{http://tortoisesvn.tigris.org/}
+{TortoiseSVN} is a graphical Subversion client for Windows users that integrates nicely 
+with the Windows Explorer. A similar project exists for OS X (\href{http://
+scplugin.tigris.org/}{SCPlugin}), but due to its early development stage, some people 
+may prefer commercial products (\href{http://www.zennaware.com/cornerstone/}
+{Cornerstone} or \href{http://versionsapp.com/}{Versions}). 
+
+As the name implies, decentralized version control systems spread out the work
+of managing repositories while still emphasizing collaboration. The main
+difference is that instead of a single, server-side repository, each
+collaborator has a local repository and a local working copy. The advantage of
+this mode of version control is that each collaborator can work offline, make
+small, frequent, and fast commits, and still communicate with other
+repositories (usually by pushing to a server as with a centralized system).
+By their decentralized nature,  distributed VCs make ``branching'' a natural
+technique. ``Branching'' refers to making parallel copies of the repository to
+try out ideas, make complex changes, or just play around in a sandbox. For
+example, say you wish to add an additional data source to the paper to see if
+it adds strength to the argument, but you also will be editing the document
+simultaneously. By adding a branch, you have a safe place to add data and
+change wide sections of the analysis, but can still edit text on the main
+document. If the additional data source proves useful, you can merge the
+branch back to the main code base, maintaining any edits. If the additional
+data is not useful, you have done no harm to your primary document. In a
+distributed version control system, every collaborator is working his or her
+own branch, so these merges are natural and well supported.\footnote{It is
+fair to note that systems like Subversion support branching; however, SVN
+places more burden on the user to merge branches than the distributed systems.
+This situation is improving for SVN and will likely be a non-issue in the
+future.}
+
+The downside of distributed systems is that they require slightly more
+overhead than a centralized system. To commit changes in a centralized system,
+a user pushes his changes to a centralized server and they are immediately
+available to other users. In a decentralized system, a user commits locally,
+then pushes to a remote server. This remote server can either be commonly
+shared or unique the individual collaborator. In the latter case, the other
+collaborators will need to pull in changes from their associates' online
+repositories. To some degree this additional complexity can be hidden by
+tools. There are number of online services providing tooling
+around distributed version controls systems
+(\href{http://www.github.com}{GitHub} for \href{http://git-scm.com/}{Git},
+\href{https://launchpad.net/}{Launchpad} for
+\href{http://bazaar.canonical.com/en/}{Bazaar}, and
+\href{https://bitbucket.org/}{BitBucket} for
+\href{http://mercurial.selenic.com/}{Mercurial} --- three popular DVCs).
+Similar to SVN, there also exist client side tools for working with these
+version controls systems. 
+
+So which to use? In our experience, centralized version control (specifically
+SVN) is the easiest for collaborators to use, but has required the most work
+to set up the server. If you have technical support through your institution
+or plan to use an online service, the maturity and simplicity of SVN could be
+a big benefit to your team. On the other hand, distributed version control
+systems can be quick to get up and running. We have combined a distributed
+system with Dropbox, where collaborators pushed to a shared repository on
+Dropbox. This was not a perfect solution, as two simultaneous pushes could
+conflict, but it still provided more guarantees than just directly editing the
+shared files. This was also a good solution to incorporate a collaborator with
+less technical ability. This collaborator edited the copy in Dropbox, and the
+other collaborators pushed and pulled to their own local repositories. Single
+users can also make quick use of distributed systems to have an undo stack of
+previous documents and a place to create sandbox branches. In both the local
+user and the Dropbox case, it would be easy to start pushing to a shared
+remote server for more serious collaboration.
 
 % make files to explicitly state dependences
-
+\subsection{Scripts}
 While version control systems will keep track of changes and make sure the
 source is in a consistent state,  % blah, write this better
 source code alone (and here we include things such as .tex files and data),
@@ -219,12 +340,14 @@ borrowing from software engineering, we have found ``database migrations'' to
 be a useful technique in capturing exactly how and why data should
 change.\footnote{As the name implies, database migrations are most often
 applied to databases, as compared to flat files, such as \texttt{.csv} or
-\texttt{.dta} files. While beyond the scope of this article, relational databases are an
+\texttt{.dta} files. While beyond the scope of this article, relational databases 
+are an
 underused tool in the social sciences. We hope to provide suggestions on using
 true databases in a research context in future articles.}
 While a version control system could capture how a \texttt{.csv} file changes
 from one commit to the next, a migration provides the exact steps by which the
-data are manipulated. For example, consider downloading data from \href{http://electionstudies.org}{the
+data are manipulated. For example, consider downloading data from \href{http://
+electionstudies.org}{the
 ANES} and \href{http://www.census.gov}{the United States
 Census} and joining it into a single table for analysis
 in \texttt{R}. The most familiar approach might be to load both datasets into
@@ -319,24 +442,28 @@ collaborators. But even such conflicts are usually quickly resolved. More
 difficult is maintaining common style and usage throughout a
 project.\footnote{You may wish to adopt a style guide for both coding and
 text.
-\href{http://google-styleguide.googlecode.com/svn/trunk/google-r-style.html}{Google publishes a style guide for
+\href{http://google-styleguide.googlecode.com/svn/trunk/google-r-style.html}
+{Google publishes a style guide for
 R}.
 Style guides for the English language are numerous.}
 
 This article has focused on collaboration, but these suggestions also have
 benefits for \emph{replication.} In sense, someone replicating your research
 is simply a future collaborator. Encapsulating changes within a version
-control system, providing build scripts, and adhearing to a consistent style
+control system, providing build scripts, and adhering to a consistent style
 guide all make it easier for a future researcher to replicate our work. These
-tools also make it easier for other researchers evaluate our work by adjusting assumptions, use
-different data sets, or applying new methods to our data. In this article, we
-focused on collaboration as an immediate goal, but as an added incentive these
-suggestions also make for reproducible research. 
-
+tools also make it easier for other researchers evaluate our work by adjusting 
+assumptions, use
+different data sets, or applying new methods to our data. Writing code with a
+partner at your elbow ensures that at least one other person understands what
+the code is doing, raising the probability that some replicating your work
+will understand it too. Good practices for collaboration make it easier for
+future partners (i.e. replicators) to understand what we have done and how to
+do it.
 % good collaboration leads to reproducible research
 % ``collaborating with replicators'' or something like that
 
-\section{Further Reading}
+% \section{Further Reading}
 
 % TODO appendix and a bib file
 \end{document}
