@@ -133,8 +133,10 @@ reverting back to the old conclusion.
 
 This is exactly what so-called version control (VC) systems are designed to avoid. 
 Developed for is software engineering, these systems enable multiple authors to 
-work on the same documents and safely merge their changes. The basic setup of a 
-version control system is simple. Collaborators work off a central repository, where 
+work on the same documents and safely merge their changes.
+Version control systems come in two flavors: centralized and decentralized.
+The basic setup of a 
+centralized version control system is simple. Collaborators work off a central repository, where 
 the version-controlled documents reside. Upon joining a project, each collaborator 
 obtains a working copy of each of these documents. Versions are tracked by means of 
 revision numbers, assigned and maintained by the VC system. When you obtain a document 
@@ -168,7 +170,7 @@ characters. This will automatically break long sentences into smaller chunks
 from the perspective of the VC system and provide for fewer headaches down the
 road.}
 
-Various implementations of this basic version control model exist. One of the most 
+Various implementations of this centralized version control model exist. One of the most 
 popular systems is \href{http://subversion.tigris.org/}{Subversion}, which is available 
 free of charge (both the server required to set up a central repository, and a command 
 line client to check out and maintain a local working copy). However, various 
@@ -182,10 +184,64 @@ scplugin.tigris.org/}{SCPlugin}), but due to its early development stage, some p
 may prefer commercial products (\href{http://www.zennaware.com/cornerstone/}
 {Cornerstone} or \href{http://versionsapp.com/}{Versions}). 
 
-\href{http://git-scm.com/}{Git} is another version control system that relies on a 
-slightly different merging mechanism. [Mark: add more? One or two sentences are 
-probably enough.] 
+As the name implies, decentralized version control systems spread out the work
+of managing repositories while still emphasizing collaboration. The main
+difference is that instead of a single, server-side repository, each
+collaborator has a local repository and a local working copy. The advantage of
+this mode of version control is that each collaborator can work offline, make
+small, frequent, and fast commits, and still communicate with other
+repositories (usually by pushing to a server as with a centralized system).
+By their decentralized nature,  distributed VCs make ``branching'' a natural
+technique. ``Branching'' refers to making parallel copies of the repository to
+try out ideas, make complex changes, or just play around in a sandbox. For
+example, say you wish to add an additional data source to the paper to see if
+it adds strength to the argument, but you also will be editing the document
+simultaneously. By adding a branch, you have a safe place to add data and
+change wide sections of the analysis, but can still edit text on the main
+document. If the additional data source proves useful, you can merge the
+branch back to the main code base, maintaining any edits. If the additional
+data is not useful, you have done no harm to your primary document. In a
+distributed version control system, every collaborator is working his or her
+own branch, so these merges are natural and well supported.\footnote{It is
+fair to note that systems like Subversion support branching; however, SVN
+places more burden on the user to merge branches than the distributed systems.
+This situation is improving for SVN and will likely be a non-issue in the
+future.}
 
+The downside of distributed systems is that they require slightly more
+overhead than a centralized system. To commit changes in a centralized system,
+a user pushes his changes to a centralized server and they are immediately
+available to other users. In a decentralized system, a user commits locally,
+then pushes to a remote server. This remote server can either be commonly
+shared or unique the individual collaborator. In the latter case, the other
+collaborators will need to pull in changes from their associates' online
+repositories. To some degree this additional complexity can be hidden by
+tools. There are number of online services providing tooling
+around distributed version controls systems
+(\href{http://www.github.com}{GitHub} for \href{http://git-scm.com/}{Git},
+\href{https://launchpad.net/}{Launchpad} for
+\href{http://bazaar.canonical.com/en/}{Bazaar}, and
+\href{https://bitbucket.org/}{BitBucket} for
+\href{http://mercurial.selenic.com/}{Mercurial} --- three popular DVCs).
+Similar to SVN, there also exist client side tools for working with these
+version controls systems. 
+
+So which to use? In our experience, centralized version control (specifically
+SVN) is the easiest for collaborators to use, but has required the most work
+to set up the server. If you have technical support through your institution
+or plan to use an online service, the maturity and simplicity of SVN could be
+a big benefit to your team. On the other hand, distributed version control
+systems can be quick to get up and running. We have combined a distributed
+system with Dropbox, where collaborators pushed to a shared repository on
+Dropbox. This was not a perfect solution, as two simultaneous pushes could
+conflict, but it still provided more guarantees than just directly editing the
+shared files. This was also a good solution to incorporate a collaborator with
+less technical ability. This collaborator edited the copy in Dropbox, and the
+other collaborators pushed and pulled to their own local repositories. Single
+users can also make quick use of distributed systems to have an undo stack of
+previous documents and a place to create sandbox branches. In both the local
+user and the Dropbox case, it would be easy to start pushing to a shared
+remote server for more serious collaboration.
 
 % make files to explicitly state dependences
 
